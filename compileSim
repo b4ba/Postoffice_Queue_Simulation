@@ -1,0 +1,26 @@
+#!/bin/bash
+echo
+echo Compiling Program...
+gcc -ansi -I./ -c Queue.c -o Queue.o
+gcc -ansi -I./ -c simQ.c -o simQ.o
+gcc -ansi -I./ -c statistics.c -o statistics.o
+gcc -ansi -I./ -c input.c -o input.o
+# Only link if compilation returns with no errors
+if [[ $? -eq 0 ]]
+then
+    echo Program compiled ok!
+    echo
+    echo Linking...
+    gcc simQ.o Queue.o statistics.o input.o -lgsl -lgslcblas -o simQ
+
+    if [[ $? -eq 0 ]]
+    then
+        echo Program compiled and linked ok!
+    else
+        echo Link failed!!!
+    fi
+else
+    echo Compiled failed!!!
+fi
+
+
